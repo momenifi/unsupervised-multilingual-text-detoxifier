@@ -14,12 +14,9 @@ text-detoxification, toxicity,mask-prediction, sentence-similarity, sequence-to-
 
 ### Social Science Usecase
 
-John is a researcher studying about online discourse. He wants acess to fake news within a definite time period about the US Presidential Elections. He visits the MH portal to find this method that helps him to generate a repository of fact-checked claims. He uses the search box on the top of the interface and types in Claims or Fake News. The search functionality of the MH shows him a list or related methods and tutorials that provides John with methods that can help him generate this huge collection of claims which he can then querry and find all relevant claims regarding Presidential Elections and reuse for his study.
-
-Mary is a researcher who wants to investigate the impact of Gun laws on the society. She has a huge collection of claims, from different websites but wants to have them all at one place and search those pertaining to gun laws over a particular time period. She uses the search box to find methods related to claims or fact-checks.The search functionality of the MH shows her a list of related methods and tutorials related to claims. She then uses Verified Claims Wizard that generates a huge repository of claims out of it. She then searches this repository regarding all claims related to the Gun laws and it brings her a list of all relevant claims, be it true, false, mixed or others which she can reuse for her study.
+Mary is a researcher who wants to investigate the Hate in online and in traditional media. She wants to study impacts on individuals, audiences, and communities and wants to find neutralised alternatives to toxic texts. She has a huge collection of toxic inputs in many different languages, from different websites but wants to have them all at one place and search those pertaining to gun. She uses the search box to find methods related to toxicity.The search functionality of the MH shows her a list of related methods and tutorials. She then uses mDetoxifier Multilingual unsupervised text detoxifier to neutralise the texts in various languages to carry out her research.
 
 
-Lily is a researcher who wants to study the evolution of false claims related to Covid or coronavirus. She collects claims from a number of fact-checking websites but does not have an easy way to pick only those that are false and also related to Covid. She uses the search box in MH to find methods related to fact-checking.The search functionality of the MH shows her a list or related methods and tutorials related to Fact-Checking that can help her generate a fact checked claims repository out of it.She generates the repository using Verified Claims Wizard and runs a search querry to find all false claims related to covid or coronavirus in a very short time. 
 
 
 ### Repository Structure
@@ -36,7 +33,9 @@ This program requires Python 3.x to run.
 
 ### How to Use
 Call the method in the following way
+
 masked_sentences = mask_similar_words(hi, hindi_sentence,selected_tokens)
+
 where hi are the toxic words in hindi language and hindi_sentences are a list of toxic sentences in hindi. The same method can be applied to any languages where the the toxic words and sentences can be replaced with the desired language
 
 
@@ -67,7 +66,7 @@ From our resultant sentences we chose the one that had the lowest score indicati
 
 
 ### Limitation
-The method needs a list of toxic lexicons(curse words in specific languages). A list of toxic lexicons for 9 languages are provided here. User can add/edit as per need and will https://huggingface.co/datasets/textdetox/multilingual_toxic_lexicon
+The method needs a list of toxic lexicons(curse words in specific languages). A list of toxic lexicons for 9 languages(English, Spanish, German, Chinese, Arabic, Hindi, Ukrainian, Russian, and Amharic) are provided here. User can add/edit as per need and will https://huggingface.co/datasets/textdetox/multilingual_toxic_lexicon
 
 
 
