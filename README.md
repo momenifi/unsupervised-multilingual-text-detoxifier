@@ -1,6 +1,7 @@
 # mDetoxifier Multilingual unsupervised text detoxifier
 # Description
-The mDetoxifier Multilingual unsupervised text detoxifier is a method to detoxify toxic text. The method is applicable for any language.An user can use this method to convert a toxic text into neutral one while preserving its original meaning..  
+
+This method leverages advanced natural language processing techniques to automatically identify and neutralize toxic language in text, regardless of the language used. By combining language detection, toxic word identification, linguistic pattern analysis, and state-of-the-art mask prediction models, mDetoxifier transforms harmful content into neutral text while maintaining the original intent and meaning. The approach is fully unsupervised, making it adaptable to new languages and domains without the need for extensive labeled datasets. This makes it a powerful tool for researchers, developers, and organizations seeking to promote healthier online communication across diverse linguistic communities.
 
 ### Keywords
 text-detoxification, toxicity,mask-prediction, sentence-similarity, sequence-to-sequence models

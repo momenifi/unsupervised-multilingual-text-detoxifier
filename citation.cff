@@ -1,0 +1,21 @@
+cff-version: 1.2.0
+title: mDetoxifier Multilingual unsupervised text detoxifier
+message: >-
+  If you use this software, please cite it using the
+  metadata from this file.
+type: software
+authors:
+  - given-names: Susmita
+    family-names: Gangopadhyay
+    orcid: '0009-0009-1520-9070'
+    affiliation: 'GESIS , Leibniz Institute for the Social Sciences'
+abstract: >-
+  mDetoxifier is a multilingual unsupervised text detoxifier that removes toxic content from text data. It is designed to work with multiple languages and can be used in various applications where text toxicity needs to be mitigated.
+keywords:
+  - text detoxification
+  - multilingual
+  - unsupervised learning
+  - natural language processing
+  - toxicity removal
+
+license: MIT
