@@ -1,29 +1,32 @@
-name: mdetoxifier
+name: mdtox-binder
 channels:
   - conda-forge
   - defaults
 dependencies:
   - python=3.9
-  - pip
-  - cython
   - numpy
-  - setuptools
   - pandas
-  - nltk
   - matplotlib
-  - tqdm
-  - pyarrow
-  - sentencepiece
+  - scikit-learn
+  - pip
   - pip:
-      - datasets==2.13.0
+      # Ensure pip <24.1 to avoid metadata issues
+      - pip<24.1
+
+      # Core ML/NLP packages
+      - torch==1.12.1
+      - torchvision==0.13.1
+      - torchaudio==0.12.1
       - transformers==4.9.2
+      - datasets==2.13.0
       - sentence-transformers==2.1.0
-      - torch==1.9.1
-      - torchvision==0.10.1
-      - torchaudio==0.9.1
+
+      # Detox/masking packages
       - fastBPE==0.1.0
       - sacremoses==0.0.53
       - textblob
       - langdetect
       - git+https://github.com/bheinzerling/pyrouge.git
-      - git+https://github.com/facebookresearch/fairseq.git@main
+
+      # Fairseq (compatible with torch 1.12)
+      - fairseq==0.12.2
