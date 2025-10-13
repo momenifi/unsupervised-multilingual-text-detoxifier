@@ -2,7 +2,9 @@ name: detoxifier
 channels:
   - conda-forge
   - defaults
+  - pytorch   # für pytorch, torchvision, torchaudio
 dependencies:
+  # Kernpakete über Conda
   - python=3.9
   - numpy>=1.21,<1.22
   - pandas>=1.3,<1.4
@@ -12,11 +14,13 @@ dependencies:
   - tqdm
   - sentencepiece
   - pip
+
+  # PyTorch Pakete vom pytorch-Channel (CPU-Version automatisch)
   - pytorch=1.9.1
   - torchvision=0.10.1
   - torchaudio=0.9.1
-  - cpuonly
 
+  # Pip-Pakete
   - pip:
       - transformers==4.9.2
       - datasets==1.11.0
