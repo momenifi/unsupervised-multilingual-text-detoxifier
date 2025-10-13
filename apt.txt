@@ -1,0 +1,3 @@
+build-essential
+git
+python3-dev
