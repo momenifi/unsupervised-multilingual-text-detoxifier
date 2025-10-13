@@ -4,29 +4,24 @@ channels:
   - defaults
 dependencies:
   - python=3.9
+  - pip<24.1            # avoid omegaconf metadata issues
   - numpy
   - pandas
   - matplotlib
   - scikit-learn
-  - pip
+  - pytorch=1.12.1       # torch + compatible torchvision/torchaudio
+  - torchvision=0.13.1
+  - torchaudio=0.12.1
   - pip:
-      # Ensure pip <24.1 to avoid metadata issues
-      - pip<24.1
-
-      # Core ML/NLP packages
-      - torch==1.12.1
-      - torchvision==0.13.1
-      - torchaudio==0.12.1
+      # Fix omegaconf first
+      - omegaconf==2.0.6
+      # Fairseq + dependencies
+      - fairseq==0.12.2
       - transformers==4.9.2
       - datasets==2.13.0
       - sentence-transformers==2.1.0
-
-      # Detox/masking packages
       - fastBPE==0.1.0
       - sacremoses==0.0.53
       - textblob
       - langdetect
       - git+https://github.com/bheinzerling/pyrouge.git
-
-      # Fairseq (compatible with torch 1.12)
-      - fairseq==0.12.2
