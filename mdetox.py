@@ -6,6 +6,17 @@ from transformers import AutoTokenizer, AutoModelForMaskedLM, pipeline
 import difflib
 from langdetect import detect
 
+from nltk.tokenize import word_tokenize
+
+# Force use of old punkt only
+import nltk.tokenize
+if hasattr(nltk.tokenize, "_get_punkt_tokenizer"):
+    def _get_punkt_tokenizer(language):
+        from nltk.tokenize.punkt import PunktSentenceTokenizer
+        return PunktSentenceTokenizer()
+    nltk.tokenize._get_punkt_tokenizer = _get_punkt_tokenizer
+
+
 # Load the multilingual toxic lexicon dataset
 multilingual_toxic_lexicon = load_dataset("textdetox/multilingual_toxic_lexicon")
 hi = list(multilingual_toxic_lexicon['hi'])
