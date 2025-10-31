@@ -30,3 +30,9 @@ python3 -m pip install jupyterlab-quarto
 echo
 echo Completed
 echo
+
+
+echo
+echo "Pre-downloading NLTK punkt..."
+python3 -m nltk_setup || true
+echo "NLTK data ready."
