@@ -1,4 +1,4 @@
-from datasets import load_dataset
+from datasets import load_dataset, Dataset
 from collections import Counter
 import numpy as np
 import nltk
@@ -6,19 +6,27 @@ from transformers import AutoTokenizer, AutoModelForMaskedLM, pipeline
 import difflib
 from langdetect import detect
 
-# Ensure NLTK resources
+# ✅ Ensure NLTK resources are available
 nltk.download("punkt", quiet=True)
 nltk.download("punkt_tab", quiet=True)
 
-print("Loading datasets (small subset to save memory)...")
+print("Loading datasets...")
 
-# Load a small subset of the multilingual toxic lexicon
-multilingual_toxic_lexicon = load_dataset("textdetox/multilingual_toxic_lexicon")
-hi = list(multilingual_toxic_lexicon['hi'][:50])  # only 50 words
+# Load multilingual toxic lexicon
+try:
+    multilingual_toxic_lexicon = load_dataset("textdetox/multilingual_toxic_lexicon")
+    hi = list(multilingual_toxic_lexicon['hi'])
+except Exception as e:
+    print("⚠️ Could not load multilingual_toxic_lexicon from HuggingFace, using sample lexicon.")
+    hi = ["बेवकूफ", "गंदी", "घृणित"]
 
-# Load a small subset of the parade-tox dataset
-dev = load_dataset("textdetox/multilingual_paradetox")
-hindi_sentence = list(dev['hi'][:50])  # only 50 sentences
+# Load multilingual parade-tox dataset
+try:
+    dev = load_dataset("textdetox/multilingual_paradetox")
+    hindi_sentence = list(dev['hi'])
+except Exception as e:
+    print("⚠️ Could not load multilingual_paradetox from HuggingFace, using sample sentences.")
+    hindi_sentence = [{"toxic_sentence": "तुम बहुत बेवकूफ हो।", "neutral_sentence": "तुम समझदार हो।"}]
 
 # Extract toxic and non-toxic sentences
 toxic_sentences = [entry['toxic_sentence'] for entry in hindi_sentence]
@@ -57,7 +65,7 @@ def compute_similarity(word1, word2):
     return difflib.SequenceMatcher(None, word1, word2).ratio()
 
 # Function to remove words with 80% similarity from sentences and replace with <mask>
-def mask_similar_words(hi, hindi_sentence, selected_tokens, threshold=0.8):
+def mask_similar_words(hi, hindi_sentence, selected_tokens, threshold=0.8, max_unmask_attempts=3):
     masked_sentences = []
 
     for sentence_obj in hindi_sentence:
@@ -66,17 +74,18 @@ def mask_similar_words(hi, hindi_sentence, selected_tokens, threshold=0.8):
         
         masked_sentence = sentence
 
-        # Mask toxic lexicon words safely
+        # ✅ Mask lexicon words safely (string or dict)
         for word_obj in hi:
             if isinstance(word_obj, dict) and 'text' in word_obj:
                 word = word_obj['text']
             else:
                 word = str(word_obj)
+
             for sentence_word in sentence.split():
                 if difflib.SequenceMatcher(None, word, sentence_word).ratio() >= threshold:
                     masked_sentence = masked_sentence.replace(sentence_word, "<mask>").replace("<mask> <mask>", "<mask>")
 
-        # Mask selected tokens
+        # Mask words from selected_tokens
         for selected_token in selected_tokens:
             for sentence_word in sentence.split():
                 if difflib.SequenceMatcher(None, selected_token, sentence_word).ratio() >= threshold:
@@ -92,6 +101,5 @@ def mask_similar_words(hi, hindi_sentence, selected_tokens, threshold=0.8):
 
     return masked_sentences
 
-# Mask similar words in sentences
+# ✅ Mask similar words in sentences
 masked_sentences = mask_similar_words(hi, hindi_sentence, selected_tokens)
-print("Masked sentences:", masked_sentences)
