@@ -24,15 +24,17 @@ echo
 echo Installed Quarto
 echo
 
+
 # install required python packages
 python3 -m pip install jupyterlab-quarto
+
+# Download required nltk resources during build to avoid runtime failures
+python3 - <<EOF
+import nltk
+nltk.download('punkt', quiet=True)
+nltk.download('punkt_tab', quiet=True)
+EOF
 
 echo
 echo Completed
 echo
-
-
-echo
-echo "Pre-downloading NLTK punkt..."
-python3 -m nltk_setup || true
-echo "NLTK data ready."
